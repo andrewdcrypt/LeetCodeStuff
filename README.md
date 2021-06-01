@@ -3,9 +3,9 @@
 
 Stack: PHP
 
-Create array store all node values expect the ones that is equal to $val. Then piece them back together and return the result.
-
 Method One : Inefficient way of "removing" Linked List Elements
+Create array to store all node values expect the ones that is equal to $val. Then piece them back together and return the result.
+
 
 
     /**
