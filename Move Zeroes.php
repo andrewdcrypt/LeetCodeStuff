@@ -2,6 +2,8 @@
 
 Description: Move all zeroes to the end of the array while maintaining the relative order of the non-zero elements
 
+Method One:
+
 Create an array to store the zeros
 Loop through the array to remove them from $nums
 store zeroes into $zero_arr
@@ -9,7 +11,6 @@ reset the $nums array keys
 set index back 1 so it loops correctly after resetting the $nums array key
 set $nums to the array_merge result
 
-Method One:
 /**
      * @param Integer[] $nums
      * @return NULL
