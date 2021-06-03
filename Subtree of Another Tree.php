@@ -7,7 +7,7 @@ Method One:
 Set base condition
 Check if the root tree is the same as the subRoot tree
 Set the left and right variable recursion for it to loop 
-Check if $left or $right returns true to indicate a duplicate subRoot tree true exist within root tree
+Check if $left or $right returns true to indicate a duplicate subRoot tree exist within root tree
 
 /**
  * Definition for a binary tree node.
