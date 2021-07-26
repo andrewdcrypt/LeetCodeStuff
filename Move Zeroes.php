@@ -4,6 +4,36 @@ Description: Move all zeroes to the end of the array while maintaining the relat
 
 Method One:
 
+set the array length outside of loop
+in the loop search for 0 if its zero
+append it to $nums and use unset() instead of array_splice()
+to remove it from the current position without
+changing the array keys
+
+class Solution {
+
+    /**
+     * @param Integer[] $nums
+     * @return NULL
+     */
+    function moveZeroes(&$nums) {
+        $arr_len = count($nums);
+        
+        for($index = 0; $index < $arr_len; $index++){
+            
+            if ($nums[$index] === 0){
+                $nums[] = $nums[$index];
+                unset($nums[$index]);
+            }
+            
+        }
+        
+        return null;
+    }
+}
+
+Method Two:
+
 Create an array to store the zeros
 Loop through the array to remove them from $nums
 store zeroes into $zero_arr
