@@ -1,0 +1,59 @@
+#Robot Return to Origin
+
+Description:
+There is a robot starting at position (0, 0), the origin, on a 2D plane.
+Given a sequence of its moves, judge if this robot ends up at (0, 0) after it completes its moves.
+
+The move sequence is represented by a string, and the character moves[i] represents its ith move.
+Valid moves are R (right), L (left), U (up), and D (down). If the robot returns to the origin after it finishes all of its moves,
+return true. Otherwise, return false.
+
+Note: The way that the robot is "facing" is irrelevant. "R" will always make the robot move to the right once,
+"L" will always make it move left, etc. Also, assume that the magnitude of the robot's movement is the same for each move.
+
+
+Method one:
+
+treat the 'U' and 'R' char as positive increments and 'D' and 'L' as negative increments
+for me I setup the $right/$left/$up/$down variables to increment and decrement them and then
+sum them together to see if it comes out to zero if so its true Otherwise false
+
+class Solution {
+
+    /**
+     * @param String $moves
+     * @return Boolean
+     */
+    function judgeCircle($moves) {
+        $str_len = strlen($moves);
+        
+        $right = 0;
+        $left = 0;
+        $up = 0;
+        $down = 0;
+        
+        for($index = 0; $index < $str_len; $index++){
+            switch($moves[$index]){
+                case 'U':
+                    $up++;
+                    break;
+                case 'R':
+                    $right++;
+                    break;
+                case 'D':
+                    $down--;
+                    break;
+                case 'L':
+                    $left--;
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        $RL_total = $right + $left;
+        $UD_total = $up + $down;
+        
+        return ($RL_total === 0 && $UD_total === 0) ? true : false;
+    }
+}
