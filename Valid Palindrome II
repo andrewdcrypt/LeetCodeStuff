@@ -1,0 +1,101 @@
+#Valid Palindrome II
+
+Description:
+Given a string s, return true if the s can be palindrome after deleting at most one character from it.
+
+Method one:
+
+My thought process I went with this was if a invalid string match was found shove it into the $invalid_arr
+from there loop through again this time jumping over the $invalid_char and comparing the indivdual char
+if somewhere in the second comparison it still doesn't match stop the loop and move onto the next $invalid_char
+if say every char matched then it will return true otherwise if the loop ended and nothing match return false;
+if the base loop never had any $invalid_arr then it will end and return true;
+
+class Solution {
+
+    /**
+     * @param String $s
+     * @return Boolean
+     */
+    function validPalindrome($s) {
+        
+        $str_len = strlen($s);
+        $invalid_arr = [];
+        $length = floor($str_len/2);
+        
+        for($index = 0; $index < $length; $index++){
+            
+          
+            $start = $s[$index];
+            $end = $s[$str_len-1-$index];
+
+
+            if ($start != $end){
+                $invalid_arr[] = $start;
+                $invalid_arr[] = $end;
+            }                
+            
+            
+            if (!empty($invalid_arr)){
+                
+                $failed = false;
+                
+                while (!empty($invalid_arr)){
+                    $ignore_char = array_shift($invalid_arr);
+                    $skip = false;
+                    $initial = true;
+                    
+                    $end_index = $str_len-1;
+
+                    
+                    for($i = $index; $i < floor($str_len/2); $i++){
+                        
+                        if ($i != 0 && $initial){
+                            $left = $s[$i];
+                            $right = $s[$str_len-$i-1];
+                            $initial = false;
+                        }else{
+                            $left = $s[$i];
+                            $right = $s[$end_index-$i];
+                            $initial = false;
+                        }                            
+
+                    
+                        if ($ignore_char === $left && $skip == false){
+                            $i++;
+                            $end_index++;
+                            $left = $s[$i];
+                            $skip = true;
+                        }else if ($ignore_char === $right && $skip == false){
+                            $end_index -= 1;
+                            $right = $s[$end_index-$i];
+                            $skip = true;
+                        }
+                        
+                        
+                        if ($left != $right){
+                            $failed = true;
+                            break;
+                        }
+                        
+                    }
+                    
+                    $skip = false;
+                    
+                    
+                    if ($failed === false){
+                       return true;
+                    }else if ($failed && empty($invalid_arr)){
+                        return false;
+                    }
+                    
+                   
+                    $failed = false;
+                    
+                }
+            }
+        }
+        
+        return true;
+    }
+}
