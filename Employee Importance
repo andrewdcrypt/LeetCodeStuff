@@ -1,0 +1,80 @@
+#Employee Importance
+
+Description:
+You have a data structure of employee information, which includes the employee's unique id, their importance value, and their direct subordinates' id.
+
+You are given an array of employees employees where:
+
+    employees[i].id is the ID of the ith employee.
+    employees[i].importance is the importance value of the ith employee.
+    employees[i].subordinates is a list of the IDs of the subordinates of the ith employee.
+
+Given an integer id that represents the ID of an employee, return the total importance value of this employee and all their subordinates.
+
+Method One:
+
+So what I did was get the initial id use that in a loop
+to find the the importance value for that id and the list of
+subordinates it has. Then loop through the list and sum up
+all the importance values related to the subordinates as well as
+add any connected subordinates onto the $subs_arr for it to loop through
+
+/**
+ * Definition for Employee.
+ * class Employee {
+ *     public $id = null;
+ *     public $importance = null;
+ *     public $subordinates = array();
+ *     function __construct($id, $importance, $subordinates) {
+ *         $this->id = $id;
+ *         $this->importance = $importance;
+ *         $this->subordinates = $subordinates;
+ *     }
+ * }
+ */
+
+class Solution {
+    /**
+     * @param Employee[] $employees
+     * @param Integer $id
+     * @return Integer
+     */
+    function getImportance($employees, $id) {
+        $total_importance = 0;
+        for($index = 0; $index < count($employees); $index++){
+            
+            if ($employees[$index]->id === $id){
+                
+                $subs_arr = $employees[$index]->subordinates;
+                $total_importance += $employees[$index]->importance;
+                $sub_count = 0;
+                                
+                while($sub_count < count($subs_arr)){
+                    
+                    for($i = 0; $i < count($employees); $i++){
+                        
+                        if ($employees[$i]->id === $subs_arr[$sub_count]){
+                            
+                            if (!empty($employees[$i]->subordinates)){
+                                foreach($employees[$i]->subordinates as $value){
+                                    $subs_arr[] = $value;
+                                }
+                            }
+                            $total_importance += $employees[$i]->importance;
+                        }
+                        
+                    }
+                    
+                    $sub_count++;
+                }
+                
+                break;
+                
+            }
+            
+        }
+        
+        return $total_importance;
+        
+    }
+}
