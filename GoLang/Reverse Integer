@@ -1,0 +1,39 @@
+#Reverse Integer
+
+
+Method one:
+
+// setup variable for int to string conversion
+// setup loop to get the individual characters of the string
+// concat the characters while checking if there is a "-" char
+// Trim/remove the leading zero's
+// Convert string to int32
+// check if new_int value is still a int32 if true return a int value
+// else return 0
+
+func reverse(x int) int {
+    input_str := fmt.Sprint(x)
+    
+    new_str := ""
+    
+    for index := len(input_str)-1; index >= 0 ; index -= 1 {
+        
+        if (string(input_str[index]) == "-") {
+            new_str = "-"+strings.TrimLeft(new_str, "0")
+        }else{
+            new_str += string(input_str[index])
+        }
+         
+    }
+    
+
+    new_int,_ := strconv.ParseInt(strings.TrimLeft(new_str, "0"), 0, 32)
+    
+    //could of just hard coded the value here instead of use the math.Pow()
+    if  new_int <= int64(math.Pow(-2, 31)) || new_int >= int64(math.Pow(2,31)-1) {
+        return 0
+    }else {
+        return int(new_int)
+    }
+    
+}
