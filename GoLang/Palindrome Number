@@ -1,0 +1,25 @@
+#Palindrome Number
+
+Method One
+
+//convert int to string
+//get string length and cut it in half since there's no need to compare the full length
+//loop through comparing the front and the back of the string
+//return false if front or back does not match
+//otherwise return true when loop is finished
+
+func isPalindrome(x int) bool {
+    input_val := strconv.Itoa(x)
+    end_loop := len(input_val)/2
+    
+    for index:=0;index < end_loop ;index+=1 {
+        front_char := string(input_val[index])
+        back_char := string(input_val[len(input_val)-1-index])
+        
+        if front_char != back_char {
+            return false
+        }
+    }
+    
+    return true
+}
