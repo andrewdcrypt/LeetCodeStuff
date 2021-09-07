@@ -1,0 +1,83 @@
+#Roman to Integer
+
+Method One:
+
+Create a map of the Roman numerals and their integer value
+Setup variables to take in the total and set the the string length
+Loop through in reverse checking the next_char and current_char if they meet the condition
+if so subtract and then skip one string otherwise if condition is not met just add the current_char value
+when loop ends return the sum_total
+
+
+func romanToInt(s string) int {
+    roman_num := map[string]int{"I":1, "V":5, "X":10, "L":50, "C":100, "D":500, "M":1000}
+    
+    str_len := len(s)
+
+    sum_total := 0
+    
+    for str_len >  0 {
+        
+        current_char := string(s[str_len-1])
+        
+        if str_len-2 >= 0 {
+            next_char := string(s[str_len-2])
+            
+            if next_char == "I" {
+                if current_char == "V" || current_char == "X" {
+                    sum_total += roman_num[current_char]-1
+                    str_len -= 1
+                } else {
+                    sum_total += roman_num[current_char]
+                }
+                
+            } else if next_char == "X" {
+                if current_char == "L" || current_char == "C" {
+                    sum_total += roman_num[current_char]-10
+                    str_len -= 1
+                } else {
+                    sum_total += roman_num[current_char]
+                }
+            } else if next_char == "C" {
+                if current_char == "D" || current_char == "M" {
+                    sum_total += roman_num[current_char]-100
+                    str_len -= 1
+                } else {
+                    sum_total += roman_num[current_char]
+                }            
+            } else {
+                sum_total += roman_num[current_char]
+            }      
+            
+        }else{
+            after_char := string(s[str_len-1])
+            
+            if current_char == "I" {
+                if after_char == "V" || after_char == "X" {
+                    sum_total += roman_num[current_char]-1
+                } else {
+                    sum_total += roman_num[current_char]
+                }
+            } else if current_char == "X" {
+                if after_char == "L" || after_char == "C" {
+                    sum_total += roman_num[current_char]-10
+                } else {
+                    sum_total += roman_num[current_char]
+                }
+            } else if current_char == "C" {
+                if after_char == "D" || after_char == "M" {
+                    sum_total += roman_num[current_char]-100
+                } else {
+                    sum_total += roman_num[current_char]
+                }            
+            } else {
+                sum_total += roman_num[current_char]
+            }    
+        }
+       
+        
+        str_len -= 1
+    }
+
+    return sum_total
+}
